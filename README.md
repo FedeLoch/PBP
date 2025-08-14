@@ -11,7 +11,7 @@ To install the profiler, you must execute this Metacello script in your playgrou
 ```Smalltalk
 Metacello new
     baseline: 'PBP';
-    repository: 'github://FedeLoch/PBP/tree/main/src';
+    repository: 'github://FedeLoch/PBP:main';
     load
 ```
 
