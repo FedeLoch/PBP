@@ -4,6 +4,17 @@ Our `BytecodeProfiler` is implemented by using the Pharo debugger interpreter. T
 
 By definition, implement the bytecode profiler since the Pharo image adds overhead, and therefore, it is more expensive than a VM Interpreter bytecode profiler. Our long-term objective is to implement it on the VM side.
 
+## Getting started
+
+To install the profiler, you must execute this Metacello script in your playground or add the project as a dependency.
+
+```Smalltalk
+Metacello new
+    baseline: 'PBP';
+    repository: 'github://FedeLoch/PBP/tree/main/src';
+    load
+```
+
 Running the Bytecode profiler is easy. It only needs to receive a `Context`. Then the profiler will execute and collect all the information about its execution.
 
 ```Smalltalk
