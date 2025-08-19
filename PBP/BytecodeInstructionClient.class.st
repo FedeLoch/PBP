@@ -12,7 +12,8 @@ Class {
 		'stackPops',
 		'arrayAccesses',
 		'instanceVariableAccesses',
-		'staticVariableAccesses'
+		'staticVariableAccesses',
+		'loops'
 	],
 	#category : 'PBP-BytecodeProfiler',
 	#package : 'PBP',
@@ -82,6 +83,7 @@ BytecodeInstructionClient >> initialize [
 	arrayAccesses := 0.
 	stackPushs := 0.
 	stackPops := 0.
+	loops := 0.
 ]
 
 { #category : 'instruction decoding' }
@@ -100,6 +102,12 @@ BytecodeInstructionClient >> instanceVariableAccesses [
 BytecodeInstructionClient >> isArrayAccess: method [
 
 	^ method = (Array >> #at:)
+]
+
+{ #category : 'instruction decoding' }
+BytecodeInstructionClient >> jump: offset [
+
+	offset < 0 ifTrue: [ loops := loops + 1 ]
 ]
 
 { #category : 'as yet unclassified' }
@@ -326,9 +334,7 @@ BytecodeInstructionClient >> totalExecutedBytecodes [
 { #category : 'accessing' }
 BytecodeInstructionClient >> totalExecutedLoops [
 
-	^ executedMethods keys inject: 0 into: [ :r :method |
-		method isLoop ifTrue: [ r + executedMethods at: method ] ifFalse: [ r ]
-	]
+	^ loops
 ]
 
 { #category : 'accessing' }
